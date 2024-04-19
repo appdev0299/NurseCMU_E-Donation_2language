@@ -178,9 +178,9 @@ require_once 'config_th/head.php'; ?>
                             echo "ไม่มีข้อมูลที่จำเป็นสำหรับการบันทึก";
                         }
                     }
-                    echo '<pre>';
-                    print_r($_POST);
-                    echo '</pre>';
+                    // echo '<pre>';
+                    // print_r($_POST);
+                    // echo '</pre>';
                     ?>
                 </form>
 
