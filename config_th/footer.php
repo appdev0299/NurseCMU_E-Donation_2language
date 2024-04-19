@@ -6,17 +6,17 @@
 
                 <ul class="footer-menu">
 
-                    <li class="footer-menu-item"><a href="index?lang=<?= $_GET['lang'] ?>" class="footer-menu-link"><?php echo $lang['home'] ?></a></li>
+                    <li class="footer-menu-item"><a href="index?lang=<?php echo $_SESSION['lang']; ?>" class="footer-menu-link"><?php echo $lang['home'] ?></a></li>
 
-                    <li class="footer-menu-item"><a href="index#section_2?lang=<?= $_GET['lang'] ?>" class="footer-menu-link"><?php echo $lang['donation'] ?></a></li>
+                    <li class="footer-menu-item"><a href="index#section_2?lang=<?php echo $_SESSION['lang']; ?>" class="footer-menu-link"><?php echo $lang['donation'] ?></a></li>
 
                     <li class="footer-menu-item"><a href="index.php#section_3" class="footer-menu-link"><?php echo $lang['donation_steps'] ?></a></li>
 
-                    <li class="footer-menu-item"><a href="invoice?lang=<?= $_GET['lang'] ?>" class="footer-menu-link"><?php echo $lang['list_of_donors'] ?></a></li>
+                    <li class="footer-menu-item"><a href="invoice?lang=<?php echo $_SESSION['lang']; ?>" class="footer-menu-link"><?php echo $lang['list_of_donors'] ?></a></li>
 
-                    <li class="footer-menu-item"><a href="service?lang=<?= $_GET['lang'] ?>" class="footer-menu-link"><?php echo $lang['benefits'] ?></a></li>
+                    <li class="footer-menu-item"><a href="service?lang=<?php echo $_SESSION['lang']; ?>" class="footer-menu-link"><?php echo $lang['benefits'] ?></a></li>
 
-                    <li class="footer-menu-item"><a href="index#section_4?lang=<?= $_GET['lang'] ?>" class="footer-menu-link"><?php echo $lang['contact'] ?></a></li>
+                    <li class="footer-menu-item"><a href="index#section_4?lang=<?php echo $_SESSION['lang']; ?>" class="footer-menu-link"><?php echo $lang['contact'] ?></a></li>
                 </ul>
             </div>
 

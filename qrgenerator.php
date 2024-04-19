@@ -39,7 +39,7 @@ require_once 'config_th/head.php'; ?>
                                 die("Connection failed: " . mysqli_connect_error());
                             }
 
-                            $sql = "SELECT amount, rec_date_s, edo_pro_id, id, rec_time FROM donation WHERE id = :id";
+                            $sql = "SELECT amount, rec_date_s, edo_pro_id, id, rec_time, edo_name, edo_tex FROM donation WHERE id = :id";
                             $stmt = $conn->prepare($sql);
                             $stmt->bindParam(':id', $id, PDO::PARAM_INT);
 
@@ -120,11 +120,14 @@ require_once 'config_th/head.php'; ?>
                                         &nbsp;
                                         <div class="d-flex align-items-center justify-content-center">
                                             <div class="text-center" style="position: relative;">
-                                                <img src="images/Thai_QR_Payment_Logo.png" alt="Thai QR Payment Logo" width="400" height="550">
-                                                <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -40%);">
+                                                <img src="images/e-Donation.svg" alt="Thai QR Payment Logo" width="400" height="550">
+                                                <div style="position: absolute; top: 60%; left: 50%; transform: translate(-50%, -40%);">
                                                     <img src="<?php echo $urlRelativeFilePath; ?>" width="<?php echo $qrCodeSize; ?>" height="<?php echo $qrCodeSize; ?>">
                                                 </div>
                                             </div>
+                                        </div>
+                                        <div class="d-flex align-items-center justify-content-center">
+                                            <p><?php echo $row['edo_name']; ?></br><?php echo $row['edo_tex']; ?></br><?php echo $lang['total_amount'] ?> : <?php echo number_format($row['amount'], 2, '.', ','); ?> <?php echo $lang['currency'] ?></p>
                                         </div>
                                 <?php
                                     }
@@ -132,35 +135,27 @@ require_once 'config_th/head.php'; ?>
                                     echo "ไม่มีข้อมูลเวลา.";
                                 }
                                 ?>
+                                <script>
+                                    var countdownElement = document.getElementById("countdown");
+                                    var endTime = new Date("<?php echo date('M d, Y H:i:s', $newTime); ?>").getTime();
+                                    var x = setInterval(function() {
+                                        var now = new Date().getTime();
+                                        var distance = endTime - now;
+                                        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                                        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                                        countdownElement.innerHTML = "กรุณาชำระเงินก่อน เวลา: " + minutes + " นาที " + seconds + " วินาที";
+                                        if (distance < 0) {
+                                            clearInterval(x);
+                                            countdownElement.innerHTML = "หมดเวลาการชำระเงิน กรุณากรอกข้อมูลการบริจาคครั้งใหม่";
+                                            setTimeout(function() {
+                                                window.location.reload();
+                                            }, 2000);
+                                        }
+                                    }, 1000);
+                                </script>
                             </div>
-
-                            <script>
-                                // JavaScript countdown timer
-                                var countdownElement = document.getElementById("countdown");
-                                var endTime = new Date("<?php echo date('M d, Y H:i:s', $newTime); ?>").getTime();
-
-                                var x = setInterval(function() {
-                                    var now = new Date().getTime();
-                                    var distance = endTime - now;
-
-                                    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                                    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-                                    countdownElement.innerHTML = "กรุณาชำระเงินก่อน เวลา: " + minutes + " นาที " + seconds + " วินาที";
-
-                                    if (distance < 0) {
-                                        clearInterval(x);
-                                        countdownElement.innerHTML = "หมดเวลาการชำระเงิน กรุณากรอกข้อมูลการบริจาคครั้งใหม่";
-                                        // รีโหลดหน้าเมื่อหมดเวลา
-                                        setTimeout(function() {
-                                            window.location.reload();
-                                        }, 2000); // รีโหลดหน้าหลังจาก 3 วินาที
-                                    }
-                                }, 1000);
-                            </script>
                         </div>
                     </div>
-                    <br>
                     <script>
                         var loopCount = 0;
 
@@ -178,7 +173,7 @@ require_once 'config_th/head.php'; ?>
                                     ref1: ref1
                                 };
                                 var xhr = new XMLHttpRequest();
-                                xhr.open("POST", "data_check_receipt.php", true);
+                                xhr.open("POST", "datacheck.php", true);
                                 xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
                                 xhr.onreadystatechange = function() {
                                     if (xhr.readyState === 4 && xhr.status === 200) {
@@ -194,7 +189,7 @@ require_once 'config_th/head.php'; ?>
                                             });
                                             setTimeout(function() {
                                                 window.location.href = "index.php#section_2";
-                                            }, 6000);
+                                            }, 5000);
                                         }
                                     }
                                 };
@@ -205,10 +200,9 @@ require_once 'config_th/head.php'; ?>
 
                             loopCount++;
                             if (loopCount >= 100) {
-                                clearInterval(intervalId); // Stop the loop after 20 iterations
+                                clearInterval(intervalId);
                             }
                         }
-
                         var intervalId = setInterval(fetchData, 5000);
                     </script>
                 </form>

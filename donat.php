@@ -92,6 +92,7 @@ require_once 'config_th/head.php'; ?>
 
                             </div>
                             <input type="text" name="edo_name" value="<?= $row['edo_name']; ?>" hidden>
+                            <input type="text" name="edo_tex" value="<?= $row['edo_tex']; ?>" hidden>
                             <input type="text" name="edo_pro_id" value="<?= $row['edo_pro_id']; ?>" hidden>
                             <input type="text" name="edo_description" value="<?= $row['edo_description']; ?>" hidden>
                             <input type="text" name="rec_date_s" value="<?php echo date('Y-m-d'); ?>" hidden>
@@ -136,8 +137,8 @@ require_once 'config_th/head.php'; ?>
                                 $status_receipt = isset($_POST['status_receipt']) ? 1 : 0;
 
                                 $stmt = $conn->prepare("INSERT INTO donation
-                                (rec_email1, rec_email2, amount, name_title, donation_fullname, rec_idname, rec_tel, address, province, amphure, district, zip_code, status_receipt, edo_pro_id, edo_description, rec_date_s,edo_name)
-                                VALUES (:rec_email1, :rec_email2, :amount, :name_title, :donation_fullname, :rec_idname, :rec_tel, :address, :province_name, :amphure_name, :district_name, :zip_code, :status_receipt, :edo_pro_id, :edo_description, :rec_date_s,:edo_name)");
+                                (rec_email1, rec_email2, amount, name_title, donation_fullname, rec_idname, rec_tel, address, province, amphure, district, zip_code, status_receipt, edo_pro_id, edo_description, rec_date_s,edo_name,edo_tex)
+                                VALUES (:rec_email1, :rec_email2, :amount, :name_title, :donation_fullname, :rec_idname, :rec_tel, :address, :province_name, :amphure_name, :district_name, :zip_code, :status_receipt, :edo_pro_id, :edo_description, :rec_date_s,:edo_name,:edo_tex)");
 
                                 $stmt->bindParam(':rec_email1', $_POST['rec_email1'], PDO::PARAM_STR);
                                 $stmt->bindParam(':rec_email2', $_POST['rec_email2'], PDO::PARAM_STR);
@@ -154,6 +155,7 @@ require_once 'config_th/head.php'; ?>
                                 $stmt->bindParam(':zip_code', $zip_code, PDO::PARAM_STR);
                                 $stmt->bindParam(':status_receipt', $status_receipt, PDO::PARAM_INT);
                                 $stmt->bindParam(':edo_name', $_POST['edo_name'], PDO::PARAM_STR);
+                                $stmt->bindParam(':edo_tex', $_POST['edo_tex'], PDO::PARAM_STR);
                                 $stmt->bindParam(':edo_pro_id', $_POST['edo_pro_id'], PDO::PARAM_STR);
                                 $stmt->bindParam(':edo_description', $_POST['edo_description'], PDO::PARAM_STR);
                                 $stmt->bindParam(':rec_date_s', $_POST['rec_date_s'], PDO::PARAM_STR);

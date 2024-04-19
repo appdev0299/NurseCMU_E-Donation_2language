@@ -5,7 +5,9 @@ require_once 'config_th/head.php'; ?>
 
 <body id="section_1">
     <?php require_once 'config_th/header.php';
-    require_once 'config_th/nav.php'; ?>
+    require_once 'config_th/nav.php';
+    ?>
+
     <main>
         <section class="hero-section hero-section-full-height">
             <div class="container-fluid">
@@ -49,7 +51,7 @@ require_once 'config_th/head.php'; ?>
                 <div class="row">
 
                     <div class="col-lg-12 col-12 text-center mb-4">
-                        <h2>โครงการ</h2>
+                        <h2><?php echo $lang['project'] ?></h2>
                     </div>
                     <?php
                     require_once 'config_th/connection.php';
@@ -67,8 +69,9 @@ require_once 'config_th/head.php'; ?>
                                 <div class="custom-block-wrap">
                                     <img src="images/causes/<?= $t1['img_file']; ?>" class="custom-block-image img-fluid" alt="">
                                     <div class="custom-block">
-                                        <div class="custom-block-body" style="height: 200px;">
-                                            <h5 class="mb-3"><?php echo $t1['edo_name']; ?></h5>
+                                        <div class="custom-block-body" style="height: 250px;">
+                                            <h5 class="mb-3" style="color: black;"><?php echo $t1['edo_name']; ?></h5>
+                                            <p><b><?php echo $t1['edo_tex']; ?></b></p>
                                             <p><?php echo $t1['edo_description']; ?></p>
                                         </div>
                                         <a href="details?id=<?= $edoId; ?>&lang=<?php echo $_SESSION['lang']; ?>" class="custom-btn btn"><?php echo $lang['donation'] ?></a>

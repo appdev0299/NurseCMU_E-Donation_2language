@@ -2,7 +2,7 @@
 require_once 'config_th/connection_l.php';
 $query_menu_en = "SELECT home, donation, donation_steps, list_of_donors, benefits, contact, obj, details_of,
 rec_email1, rec_email2, amount, name_title, donation_fullname, rec_idname, rec_tel,
-address, provinces, amphures, districts, submit,status_receipt,address_nuser,header,back
+address, provinces, amphures, districts, submit,status_receipt,address_nuser,header,project,back,total_amount,currency
 FROM menu_en;
 ";
 $query_details = "SELECT `edo_name`,`edo_description` FROM project_en";
@@ -36,6 +36,9 @@ try {
 		"address_nuser" => $menu_en["address_nuser"],
 		"header" => $menu_en["header"],
 		"back" => $menu_en["back"],
+		"project" => $menu_en["project"],
+		"total_amount" => $menu_en["total_amount"],
+		"currency" => $menu_en["currency"],
 
 		"edo_name" => $details["edo_name"],
 		"lang_en" => "English",

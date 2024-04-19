@@ -18,13 +18,12 @@ require_once 'config_th/head.php'; ?>
                         $stmt->execute([$_GET['id']]);
                         $row = $stmt->fetch(PDO::FETCH_ASSOC);
                         if ($row) {
-                            // แสดงข้อมูลที่คุณต้องการให้ผู้ใช้ตรวจสอบ
                     ?>
                             <div class="row">
-                                <!-- แสดงข้อมูลที่คุณต้องการให้ผู้ใช้ตรวจสอบ -->
                                 <div class="col-lg-12 col-12 mt-3">
                                     <h5>ข้อมูลผู้รับเงินบริจาค</h5>
                                     <h6><?php echo $row['edo_name']; ?></h6>
+                                    <h6><?php echo $row['edo_tex']; ?></h6>
                                     <h6>จำนวนเงิน : <?php echo $row['amount']; ?> บาท</h6>
                                     <hr>
                                 </div>
@@ -52,7 +51,10 @@ require_once 'config_th/head.php'; ?>
                                     </div>
                                 </div>
                             </div>
-                
+                    <?php
+                        }
+                    }
+                    ?>
                 </form>
                 <?php
                 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -115,7 +117,7 @@ require_once 'config_th/head.php'; ?>
                                         timer: 2000,
                                         showConfirmButton: false
                                     }, function(){
-                                        window.location.href = "qrgenerator?id=' . $id . '&amount=' . $amount . '&rec_date_out=' . $rec_date_s . '&ref1=' .  $ref1 . '&lang=' .  $_SESSION['lang'] . '";
+                                        window.location.href = "qrgenerator?id=' . $id . '&amount=' . $amount . '&rec_date_s=' . $rec_date_s . '&ref1=' .  $ref1 . '&lang=' .  $_SESSION['lang'] . '";
                                     });
                                 </script>';
                                     } else {
