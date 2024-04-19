@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="th">
 
 <?php require_once 'config_th/config_languages.php';
 require_once 'config_th/head.php'; ?>
@@ -48,18 +48,11 @@ require_once 'config_th/head.php'; ?>
                                     </div>
                                     <div class="col">
                                         <input type="hidden" name="id" value="<?php echo $_GET['id']; ?>">
-                                        <input type="hidden" name="lang" value="<?php echo $_GET['lang']; ?>">
                                         <button type="submit" name="submit" class="form-control mt-4"><?php echo $lang['submit'] ?></button>
                                     </div>
                                 </div>
                             </div>
-                    <?php
-                        } else {
-                            // ไม่พบข้อมูลสำหรับ ID ที่ระบุ
-                            echo "ไม่พบข้อมูลสำหรับ ID: " . $_GET['id'];
-                        }
-                    }
-                    ?>
+                
                 </form>
                 <?php
                 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -67,7 +60,6 @@ require_once 'config_th/head.php'; ?>
                         require_once 'config_th/connection.php';
                         if (isset($_POST['id'])) {
                             $id = $_POST['id'];
-                            $lang = $_POST['lang'];
                             $stmt_donation = $conn->prepare("SELECT * FROM donation WHERE id = ?");
                             $stmt_donation->execute([$id]);
                             $row_donation = $stmt_donation->fetch(PDO::FETCH_ASSOC);
@@ -93,18 +85,18 @@ require_once 'config_th/head.php'; ?>
                                 // Generate ref1
                                 $id_year = date('Y') + 543;
                                 $last_two_digits = substr($id_year, -2);
-                                $lastInsertedId = $conn->lastInsertId(); // Get the last inserted ID
+                                $lastInsertedId = $conn->lastInsertId();
                                 $id_suffix = $edo_pro_id . str_pad($id, 7, '0', STR_PAD_LEFT);
                                 $ref1 = "{$last_two_digits}{$id_suffix}";
 
-                                $sql = "INSERT INTO receipt_2567 (rec_email1, rec_email2, amount, status_receipt, name_title, donation_fullname, rec_idname, rec_tel, address, province, amphure, district, zip_code, edo_pro_id, edo_name, edo_description, rec_date_s, payby, status_donat, status_user, receipt_cc, ref1) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                                $sql = "INSERT INTO donation (rec_email1, rec_email2, amount, status_receipt, name_title, donation_fullname, rec_idname, rec_tel, address, province, amphure, district, zip_code, edo_pro_id, edo_name, edo_description, rec_date_s, payby, status_donat, status_user, receipt_cc, ref1) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
                                 $stmt_receipt = $conn->prepare($sql);
                                 $result = $stmt_receipt->execute([$rec_email1, $rec_email2, $amount, $status_receipt, $name_title, $donation_fullname, $rec_idname, $rec_tel, $address, $province, $amphure, $district, $zip_code, $edo_pro_id, $edo_name, $edo_description, $rec_date_s, 'QR CODE', 'online', 'person', 'confirm', $ref1]);
 
                                 if ($result) {
                                     $lastInsertedId = $conn->lastInsertId();
                                     $pdflink = "https://app.nurse.cmu.ac.th/edonation/finance/pdf_maker.php?id=$lastInsertedId&ACTION=VIEW";
-                                    $updateSql = "UPDATE receipt_2567 SET pdflink = :pdflink WHERE id = :lastInsertedId";
+                                    $updateSql = "UPDATE donation SET pdflink = :pdflink WHERE id = :lastInsertedId";
                                     $updateStmt = $conn->prepare($updateSql);
                                     $updateStmt->bindParam(':pdflink', $pdflink, PDO::PARAM_STR);
                                     $updateStmt->bindParam(':lastInsertedId', $lastInsertedId, PDO::PARAM_INT);
@@ -123,7 +115,7 @@ require_once 'config_th/head.php'; ?>
                                         timer: 2000,
                                         showConfirmButton: false
                                     }, function(){
-                                        window.location.href = "qrgenerator?id=' . $id . '&amount=' . $amount . '&rec_date_out=' . $rec_date_s . '&ref1=' .  $ref1 . '&lang=' .  $lang . '";
+                                        window.location.href = "qrgenerator?id=' . $id . '&amount=' . $amount . '&rec_date_out=' . $rec_date_s . '&ref1=' .  $ref1 . '&lang=' .  $_SESSION['lang'] . '";
                                     });
                                 </script>';
                                     } else {

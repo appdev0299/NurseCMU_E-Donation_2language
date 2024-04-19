@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="th">
 
 <?php require_once 'config_th/config_languages.php';
 require_once 'config_th/head.php'; ?>
@@ -12,11 +12,8 @@ require_once 'config_th/head.php'; ?>
             <div class="col-lg-8 col-12 mx-auto">
                 <form class="custom-form donate-form" method="POST" role="form">
                     <?php
-                    if (isset($_GET['lang']) && $_GET['lang'] == 'en') {
-                        $table_name = 'project_en';
-                    } else {
-                        $table_name = 'project_th';
-                    }
+                    $table_name = ($_SESSION['lang'] === 'en') ? 'project_en' : 'project_th';
+
                     if (isset($_GET['id'])) {
                         require_once 'config_th/connection.php';
                         $stmt = $conn->prepare("SELECT * FROM $table_name WHERE id=?");
@@ -73,7 +70,7 @@ require_once 'config_th/head.php'; ?>
                                         <option value=""><?= $lang['provinces'] ?></option>
                                         <?php while ($result = mysqli_fetch_assoc($query)) : ?>
                                             <option value="<?= $result['id'] ?>">
-                                                <?php echo isset($_GET['lang']) && $_GET['lang'] === 'en' ? $result['name_en'] : $result['name_th']; ?>
+                                                <?php echo isset($_SESSION['lang']) && $_SESSION['lang'] === 'en' ? $result['name_en'] : $result['name_th']; ?>
                                             </option>
                                         <?php endwhile; ?>
                                     </select>

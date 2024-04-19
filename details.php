@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="th">
 
 <?php require_once 'config_th/config_languages.php';
 require_once 'config_th/head.php'; ?>
@@ -13,11 +13,8 @@ require_once 'config_th/head.php'; ?>
             <div class="container">
                 <div class="row">
                     <?php
-                    if (isset($_GET['lang']) && $_GET['lang'] == 'en') {
-                        $table_name = 'project_en';
-                    } else {
-                        $table_name = 'project_th';
-                    }
+                    $table_name = ($_SESSION['lang'] === 'en') ? 'project_en' : 'project_th';
+
                     require_once 'config_th/connection.php';
                     if ($conn) {
                         if (isset($_GET['id'])) {
@@ -37,6 +34,7 @@ require_once 'config_th/head.php'; ?>
                         echo "Failed to connect to database.";
                     }
                     ?>
+
                     <div class="col-lg-7 col-12">
                         <?php if ($row) : ?>
                             <div class="custom-text-box">
@@ -80,7 +78,7 @@ require_once 'config_th/head.php'; ?>
                             </div>
                             <h2></h2>
                             <div class="col-lg-12 col-12">
-                                <a href="donat?id=<?= $row['id']; ?>&lang=<?= isset($_GET['lang']) ? $_GET['lang'] : 'th'; ?>" class="custom-btn btn smoothscroll">บริจาคเพื่อลดหย่อนภาษี</a>
+                                <a href="donat?id=<?= $row['id']; ?>&lang=<?php echo $_SESSION['lang']; ?>" class="custom-btn btn smoothscroll">บริจาคเพื่อลดหย่อนภาษี</a>
                             </div>
                         <?php endif; ?>
                     </div>

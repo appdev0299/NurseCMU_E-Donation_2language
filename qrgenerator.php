@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="th">
 
 <?php require_once 'config_th/config_languages.php';
 require_once 'config_th/head.php'; ?>
@@ -10,14 +10,14 @@ require_once 'config_th/head.php'; ?>
     <main>
         <section class="cta-section section-padding section-bg">
             <div class="col-lg-8 col-12 mx-auto">
-                <form class="custom-form donate-form" method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" role="form">
+                <form class="custom-form donate-form" method="POST" role="form">
                     <?php
                     require_once 'config_th/connection.php';
 
                     if (isset($_GET['id'])) {
                         $id = $_GET['id'];
 
-                        $stmt = $conn->prepare("SELECT * FROM receipt_2567 WHERE id = :id");
+                        $stmt = $conn->prepare("SELECT * FROM donation WHERE id = :id");
                         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
                         $stmt->execute();
                         $row = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -39,7 +39,7 @@ require_once 'config_th/head.php'; ?>
                                 die("Connection failed: " . mysqli_connect_error());
                             }
 
-                            $sql = "SELECT amount, rec_date_s, edo_pro_id, id, rec_time FROM receipt_2567 WHERE id = :id";
+                            $sql = "SELECT amount, rec_date_s, edo_pro_id, id, rec_time FROM donation WHERE id = :id";
                             $stmt = $conn->prepare($sql);
                             $stmt->bindParam(':id', $id, PDO::PARAM_INT);
 

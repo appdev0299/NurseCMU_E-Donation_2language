@@ -14,15 +14,19 @@ require_once 'config_th/head.php'; ?>
                         <div id="hero-slide" class="carousel carousel-fade slide" data-bs-ride="carousel">
                             <div class="carousel-inner">
                                 <div class="carousel-item active">
-                                    <img src="images/slide/poster_home1.jpg" class="carousel-image img-fluid" alt="...">
+                                    <img src="images/slide/poster_home1_<?php echo $_SESSION['lang']; ?>.jpg" class="carousel-image img-fluid" alt="...">
                                 </div>
 
                                 <div class="carousel-item">
-                                    <img src="images/slide/poster_home2.jpg" class="carousel-image img-fluid" alt="...">
+                                    <img src="images/slide/poster_home2_<?php echo $_SESSION['lang']; ?>.jpg" class="carousel-image img-fluid" alt="...">
                                 </div>
 
                                 <div class="carousel-item">
-                                    <img src="images/slide/poster_home3.jpg" class="carousel-image img-fluid" alt="...">
+                                    <img src="images/slide/poster_home3_<?php echo $_SESSION['lang']; ?>.jpg" class="carousel-image img-fluid" alt="...">
+                                </div>
+
+                                <div class="carousel-item">
+                                    <img src="images/slide/poster_home4_<?php echo $_SESSION['lang']; ?>.jpg" class="carousel-image img-fluid" alt="...">
                                 </div>
                             </div>
 
@@ -49,11 +53,7 @@ require_once 'config_th/head.php'; ?>
                     </div>
                     <?php
                     require_once 'config_th/connection.php';
-                    if (isset($_GET['lang']) && $_GET['lang'] == 'en') {
-                        $table_name = 'project_en';
-                    } else {
-                        $table_name = 'project_th';
-                    }
+                    $table_name = ($_SESSION['lang'] === 'en') ? 'project_en' : 'project_th';
                     if ($conn) {
                         $stmt = $conn->prepare("SELECT * FROM $table_name");
                         $stmt->execute();
@@ -62,6 +62,7 @@ require_once 'config_th/head.php'; ?>
                             $edoId = $t1['id'];
                             $imageURL = "images/causes" . $t1['img_file'];
                     ?>
+
                             <div class="col-lg-4 col-md-6 col-12 mb-4 mb-lg-0">
                                 <div class="custom-block-wrap">
                                     <img src="images/causes/<?= $t1['img_file']; ?>" class="custom-block-image img-fluid" alt="">
@@ -70,7 +71,7 @@ require_once 'config_th/head.php'; ?>
                                             <h5 class="mb-3"><?php echo $t1['edo_name']; ?></h5>
                                             <p><?php echo $t1['edo_description']; ?></p>
                                         </div>
-                                        <a href="details?id=<?= $edoId; ?>&lang=<?= isset($_GET['lang']) ? $_GET['lang'] : 'th'; ?>" class="custom-btn btn"><?php echo $lang['donation'] ?></a>
+                                        <a href="details?id=<?= $edoId; ?>&lang=<?php echo $_SESSION['lang']; ?>" class="custom-btn btn"><?php echo $lang['donation'] ?></a>
                                     </div>
                                 </div>
                             </div>
@@ -80,7 +81,6 @@ require_once 'config_th/head.php'; ?>
                         echo "Failed to connect to database.";
                     }
                     ?>
-
                 </div>
             </div>
         </section>
