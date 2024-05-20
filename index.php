@@ -46,7 +46,7 @@ require_once 'config_th/head.php'; ?>
                 </div>
             </div>
         </section>
-        <section class="section-padding" id="section_3">
+        <section class="section-padding" id="section_2">
             <div class="container">
                 <div class="row">
 
@@ -95,7 +95,6 @@ require_once 'config_th/head.php'; ?>
     <script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/jquery.sticky.js"></script>
-    <script src="js/click-scroll.js"></script>
     <script src="js/counter.js"></script>
     <script src="js/custom.js"></script>
 

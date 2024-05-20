@@ -117,7 +117,7 @@ require_once 'config_th/head.php'; ?>
                                         timer: 2000,
                                         showConfirmButton: false
                                     }, function(){
-                                        window.location.href = "qrgenerator?id=' . $id . '&amount=' . $amount . '&rec_date_s=' . $rec_date_s . '&ref1=' .  $ref1 . '&lang=' .  $_SESSION['lang'] . '";
+                                        window.location.href = "qrgenerator?id=' . $lastInsertedId . '&amount=' . $amount . '&rec_date_s=' . $rec_date_s . '&ref1=' .  $ref1 . '&lang=' .  $_SESSION['lang'] . '";
                                     });
                                 </script>';
                                     } else {

@@ -39,7 +39,7 @@ require_once 'config_th/head.php'; ?>
                                 die("Connection failed: " . mysqli_connect_error());
                             }
 
-                            $sql = "SELECT amount, rec_date_s, edo_pro_id, id, rec_time, edo_name, edo_tex FROM donation WHERE id = :id";
+                            $sql = "SELECT amount, rec_date_s, edo_pro_id, id, rec_time, edo_name FROM receipt_offline WHERE id = :id";
                             $stmt = $conn->prepare($sql);
                             $stmt->bindParam(':id', $id, PDO::PARAM_INT);
 
@@ -109,7 +109,7 @@ require_once 'config_th/head.php'; ?>
                                 <?php
                                 if (!empty($rec_time)) {
                                     $originalTime = strtotime($rec_time);
-                                    $newTime = $originalTime + 10 * 60;
+                                    $newTime = $originalTime + 50 * 60;
                                     $newTimeFormatted = date("H:i:s", $newTime);
                                     $currentTime = time();
                                     if (strtotime($newTimeFormatted) <= $currentTime) {
@@ -127,7 +127,7 @@ require_once 'config_th/head.php'; ?>
                                             </div>
                                         </div>
                                         <div class="d-flex align-items-center justify-content-center">
-                                            <p><?php echo $row['edo_name']; ?></br><?php echo $row['edo_tex']; ?></br><?php echo $lang['total_amount'] ?> : <?php echo number_format($row['amount'], 2, '.', ','); ?> <?php echo $lang['currency'] ?></p>
+                                            <p><?php echo $row['edo_name']; ?></br><?php echo $lang['total_amount'] ?> : <?php echo number_format($row['amount'], 2, '.', ','); ?> <?php echo $lang['currency'] ?></p>
                                         </div>
                                 <?php
                                     }
@@ -158,7 +158,6 @@ require_once 'config_th/head.php'; ?>
                     </div>
                     <script>
                         var loopCount = 0;
-
                         function fetchData() {
                             var id = "<?php echo isset($_GET['id']) ? $_GET['id'] : ''; ?>";
                             var amount = "<?php echo isset($_GET['amount']) ? $_GET['amount'] : ''; ?>";
@@ -180,10 +179,10 @@ require_once 'config_th/head.php'; ?>
                                         var response = JSON.parse(xhr.responseText);
                                         console.log(response);
                                         if (response.message === 'success') {
-                                            swal({
+                                            Swal.fire({
                                                 title: "ชำระเงินการบริจาคเสร็จสิ้น",
                                                 text: "ขอบคุณสำหรับการบริจาค",
-                                                type: "success",
+                                                icon: "success",
                                                 timer: 6000,
                                                 showConfirmButton: false
                                             });
@@ -210,10 +209,10 @@ require_once 'config_th/head.php'; ?>
         </section>
     </main>
     <?php require_once('config_th/footer.php'); ?>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/jquery.sticky.js"></script>
-    <script src="js/click-scroll.js"></script>
     <script src="js/counter.js"></script>
     <script src="js/custom.js"></script>
     <script src="config_th/script_province.js"></script>

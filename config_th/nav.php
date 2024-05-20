@@ -14,7 +14,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
-                    <a class="nav-link click-scroll" href="index?lang=<?php echo $_SESSION['lang']; ?>"><?php echo $lang['home'] ?></a>
+                    <a class="nav-link click-scroll" href="index#section_1?lang=<?php echo $_SESSION['lang']; ?>"><?php echo $lang['home'] ?></a>
                 </li>
 
                 <li class="nav-item">
