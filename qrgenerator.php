@@ -1,4 +1,3 @@
-<!doctype html>
 <html lang="th">
 
 <?php require_once 'config_th/config_languages.php';
@@ -187,7 +186,7 @@ require_once 'config_th/head.php'; ?>
                                                 showConfirmButton: false
                                             });
                                             setTimeout(function() {
-                                                window.location.href = "index.php#section_2";
+                                                window.location.href = "index";
                                             }, 5000);
                                         }
                                     }
